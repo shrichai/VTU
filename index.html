@@ -4,105 +4,133 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VTU Premium Candidates Registration Form</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Poppins', sans-serif;
+      background: #ffffff;
       margin: 0;
       padding: 0;
-      background: #f4f6f9;
       color: #333;
     }
+
     .container {
       max-width: 800px;
       margin: 40px auto;
       background: #fff;
       border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
       padding: 30px;
     }
+
     .vtu-logo {
       display: block;
       margin: 0 auto 20px;
       max-width: 120px;
     }
+
     h1 {
       text-align: center;
-      color: #004080;
-      font-size: 24px;
+      color: #003366;
+      font-size: 26px;
+      font-weight: 700;
     }
+
     label {
       display: block;
-      margin: 12px 0 6px;
+      margin: 14px 0 6px;
       font-weight: 600;
+      color: #003366;
     }
+
     input[type="text"],
     input[type="number"],
     input[type="email"],
-    input[type="file"] {
+    input[type="file"],
+    select {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       border: 1px solid #ccc;
       border-radius: 6px;
+      font-size: 16px;
+      background-color: #fff;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
     }
+
+    select {
+      font-weight: 600;
+    }
+
     .subject-box {
-      margin: 16px 0;
-      background: #f1f5fb;
+      margin: 20px 0;
+      background: #f9f9f9;
       padding: 16px;
       border-radius: 10px;
       border-left: 4px solid #004080;
     }
+
     .price-section {
-      background: #fff3e0;
+      background: #f5faff;
       padding: 20px;
       border-radius: 10px;
       margin-top: 20px;
       font-size: 16px;
       font-weight: 500;
-      border: 2px solid #ffa726;
+      border: 2px solid #64b5f6;
     }
+
     .highlight {
-      color: #fb8c00;
+      color: #1976d2;
       font-weight: 700;
     }
+
     .total-price {
       font-size: 22px;
       font-weight: bold;
-      color: #388e3c;
+      color: #2e7d32;
       margin-top: 10px;
     }
+
     .btn {
-      background: #fb8c00;
+      background: linear-gradient(90deg, #1e88e5, #1565c0);
       color: #fff;
-      padding: 12px 20px;
+      padding: 14px 20px;
       border: none;
       border-radius: 6px;
-      font-size: 16px;
+      font-size: 17px;
       cursor: pointer;
       margin-top: 20px;
       width: 100%;
+      font-weight: bold;
     }
+
     .btn:hover {
-      background: #ef6c00;
+      background: linear-gradient(90deg, #1565c0, #0d47a1);
     }
+
     .qr-img {
       max-width: 200px;
       display: block;
       margin: 30px auto 20px;
     }
+
     .payment-instruction {
       text-align: center;
-      color: #fb8c00;
+      color: #1e88e5;
       font-size: 18px;
       font-weight: bold;
     }
+
     .final-amount-display {
       text-align: center;
       font-size: 20px;
-      color: #388e3c;
+      color: #2e7d32;
       font-weight: bold;
       margin-top: 10px;
     }
+
     #successPopup {
       display: none;
       position: fixed;
@@ -114,9 +142,10 @@
       font-size: 20px;
       color: #2e7d32;
     }
+
     #successPopup button {
       margin-top: 20px;
-      background: #fb8c00;
+      background: #1565c0;
       border: none;
       color: white;
       padding: 10px 20px;
@@ -132,13 +161,13 @@
     <h1>VTU Premium Candidates Registration Form</h1>
 
     <label for="name">Full Name</label>
-    <input type="text" id="name" placeholder="Enter your name" />
+    <input type="text" id="name" placeholder="Enter your name" required />
 
     <label for="email">Email</label>
-    <input type="email" id="email" placeholder="Enter your email" />
+    <input type="email" id="email" placeholder="Enter your email" required />
 
     <label for="contact">Contact Number</label>
-    <input type="text" id="contact" placeholder="Enter your phone number" />
+    <input type="text" id="contact" placeholder="Enter your phone number" required />
 
     <div class="subject-box">
       <strong>Fixed Subjects Included (Total 6 Subjects):</strong>
@@ -153,9 +182,9 @@
       <p class="highlight">Base Price for All 6 Subjects: ₹6,999 <span style="color: red; font-size: 14px;">(Discounted from ₹14,000)</span></p>
     </div>
 
-    <label for="answersNeeded">How many subjects do you need answers for (100% sure questions)?</label>
-    <select id="answersNeeded" onchange="calculateTotal()">
-      <option value="0">0</option>
+    <label for="answersNeeded">Select Number of Subjects for 100% Answer Guarantee</label>
+    <select id="answersNeeded" onchange="calculateTotal()" required>
+      <option value="">-- Select Number --</option>
       <option value="1">1</option>
       <option value="2">2</option>
       <option value="3">3</option>
@@ -175,7 +204,7 @@
     <div class="final-amount-display">Final Amount: ₹<span id="totalPriceDisplay">6,999</span></div>
 
     <label for="screenshot">Upload Payment Screenshot</label>
-    <input type="file" id="screenshot" />
+    <input type="file" id="screenshot" required />
 
     <button class="btn" onclick="submitForm()">Submit Registration</button>
   </div>
@@ -190,7 +219,8 @@
   <script>
     function calculateTotal() {
       const basePrice = 6999;
-      const selected = parseInt(document.getElementById("answersNeeded").value);
+      const selectedVal = document.getElementById("answersNeeded").value;
+      const selected = selectedVal ? parseInt(selectedVal) : 0;
       const extra = selected * 750;
       const total = basePrice + extra;
       document.getElementById("answerPrice").textContent = `₹${extra}`;
