@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VTU Premium Candidates Registration Form</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f6f9;
+      color: #333;
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+    }
+    .vtu-logo {
+      display: block;
+      margin: 0 auto 20px;
+      max-width: 120px;
+    }
+    h1 {
+      text-align: center;
+      color: #004080;
+      font-size: 24px;
+    }
+    label {
+      display: block;
+      margin: 12px 0 6px;
+      font-weight: 600;
+    }
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .subject-box {
+      margin: 16px 0;
+      background: #f1f5fb;
+      padding: 16px;
+      border-radius: 10px;
+      border-left: 4px solid #004080;
+    }
+    .price-section {
+      background: #fff3e0;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: 500;
+      border: 2px solid #ffa726;
+    }
+    .highlight {
+      color: #fb8c00;
+      font-weight: 700;
+    }
+    .total-price {
+      font-size: 22px;
+      font-weight: bold;
+      color: #388e3c;
+      margin-top: 10px;
+    }
+    .btn {
+      background: #fb8c00;
+      color: #fff;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+      width: 100%;
+    }
+    .btn:hover {
+      background: #ef6c00;
+    }
+    .qr-img {
+      max-width: 200px;
+      display: block;
+      margin: 30px auto 20px;
+    }
+    .payment-instruction {
+      text-align: center;
+      color: #fb8c00;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .final-amount-display {
+      text-align: center;
+      font-size: 20px;
+      color: #388e3c;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    #successPopup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: white;
+      z-index: 9999;
+      padding: 50px;
+      text-align: center;
+      font-size: 20px;
+      color: #2e7d32;
+    }
+    #successPopup button {
+      margin-top: 20px;
+      background: #fb8c00;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="formContainer">
+    <img src="1.jpg" class="vtu-logo" alt="VTU Logo" />
+    <h1>VTU Premium Candidates Registration Form</h1>
+
+    <label for="name">Full Name</label>
+    <input type="text" id="name" placeholder="Enter your name" />
+
+    <label for="email">Email</label>
+    <input type="email" id="email" placeholder="Enter your email" />
+
+    <label for="contact">Contact Number</label>
+    <input type="text" id="contact" placeholder="Enter your phone number" />
+
+    <div class="subject-box">
+      <strong>Fixed Subjects Included (Total 6 Subjects):</strong>
+      <ul>
+        <li>18CS54 - Automata Theory and Computability</li>
+        <li>18CS55 - Application Development Using Python</li>
+        <li>18MAT41 - Complex Analysis, Probability & Stat. Method</li>
+        <li>18PHY12 - Engineering Physics</li>
+        <li>18MAT11 - Calculus and Linear Algebra</li>
+        <li>18CIV14 - Elements of Civil Engineering and Mechanics</li>
+      </ul>
+      <p class="highlight">Base Price for All 6 Subjects: ₹6,999 <span style="color: red; font-size: 14px;">(Discounted from ₹14,000)</span></p>
+    </div>
+
+    <label for="answersNeeded">How many subjects do you need answers for (100% sure questions)?</label>
+    <select id="answersNeeded" onchange="calculateTotal()">
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+    </select>
+
+    <div class="price-section">
+      <p>Base Price (6 Subjects): <span class="highlight">₹6,999</span></p>
+      <p>Extra for 100% Answer Notes: <span id="answerPrice" class="highlight">₹0</span></p>
+      <p class="total-price">Total: ₹<span id="totalPrice">6,999</span></p>
+    </div>
+
+    <p class="payment-instruction">Make payment of the above final amount to the QR below 👇</p>
+    <img src="1.png" alt="QR Code" class="qr-img" />
+    <div class="final-amount-display">Final Amount: ₹<span id="totalPriceDisplay">6,999</span></div>
+
+    <label for="screenshot">Upload Payment Screenshot</label>
+    <input type="file" id="screenshot" />
+
+    <button class="btn" onclick="submitForm()">Submit Registration</button>
+  </div>
+
+  <div id="successPopup">
+    <p>🎉 Congratulations!<br>
+    Your registration has been successfully booked.<br>
+    You will receive your ID & Password to access all requirements within the next 24 hours.</p>
+    <button onclick="goBackToForm()">OK</button>
+  </div>
+
+  <script>
+    function calculateTotal() {
+      const basePrice = 6999;
+      const selected = parseInt(document.getElementById("answersNeeded").value);
+      const extra = selected * 750;
+      const total = basePrice + extra;
+      document.getElementById("answerPrice").textContent = `₹${extra}`;
+      document.getElementById("totalPrice").textContent = total;
+      document.getElementById("totalPriceDisplay").textContent = total;
+    }
+
+    function submitForm() {
+      const screenshot = document.getElementById("screenshot").value;
+      if (!screenshot) {
+        alert("Please upload payment screenshot after scanning QR code.");
+        return;
+      }
+      document.getElementById("formContainer").style.display = 'none';
+      document.getElementById("successPopup").style.display = 'block';
+    }
+
+    function goBackToForm() {
+      document.getElementById("successPopup").style.display = 'none';
+      document.getElementById("formContainer").style.display = 'block';
+    }
+  </script>
+</body>
+</html>
